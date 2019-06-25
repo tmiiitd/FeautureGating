@@ -1,5 +1,8 @@
 package operators;
 
+import exceptions.OperandCountException;
+import exceptions.OperandTypeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +37,8 @@ public class LessThan implements LogicalOperator {
     }
 
     public <E> boolean operate(List<E> operands) throws Exception {
-        if(operands.size()!=2)
-            throw new Exception();
+        if(operands.size()!=operandCount)
+            throw new OperandCountException("LessThan", operandCount, operands.size());
         E operand1 = operands.get(0);
         E operand2 = operands.get(1);
 
@@ -46,7 +49,7 @@ public class LessThan implements LogicalOperator {
             if(operand2 instanceof Double){
                 return (Integer)operand1<(Double)operand2;
             }
-            throw new Exception("");
+            throw new OperandTypeException("LessThan", "Operand Type Mismatch");
         }
         if(operand1 instanceof Double){
             if(operand2 instanceof Double){
@@ -55,9 +58,9 @@ public class LessThan implements LogicalOperator {
             if(operand2 instanceof Integer){
                 return (Double)operand1<(Integer)operand2;
             }
-            throw new Exception("");
+            throw new OperandTypeException("LessThan", "Operand Type Mismatch");
         }
-        throw new Exception("Operand is not of the desired type");
+        throw new OperandTypeException("LessThan", "Operand Type Not Supported");
     }
 
 }

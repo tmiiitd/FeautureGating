@@ -1,5 +1,8 @@
 package operators;
 
+import exceptions.OperandCountException;
+import exceptions.OperandTypeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +41,10 @@ public class LogicalAND implements LogicalOperator {
 
     public <E> boolean operate(List<E> operands) throws Exception {
         if(operands.size()!=operandCount)
-            throw new Exception("");
+            throw new OperandCountException("LogicalAND", operandCount, operands.size());
         for (E operand : operands){
             if(!(operand instanceof Boolean)){
-                throw new Exception();
+                throw new OperandTypeException("LogicalAND", "Operand Type Not Supported");
             }
         }
         for(E operand : operands){

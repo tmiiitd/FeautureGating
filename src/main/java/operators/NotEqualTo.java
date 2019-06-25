@@ -1,5 +1,7 @@
 package operators;
 
+import exceptions.OperandCountException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class NotEqualTo implements LogicalOperator {
 
     public <E> boolean operate(List<E> operands) throws Exception {
         if(operands.size()!=operandCount)
-            throw new Exception("");
+            throw new OperandCountException("NotEqualTo", operandCount, operands.size());
         if(operands.get(0) instanceof String && operands.get(1) instanceof String)
             return !(((String) operands.get(0)).equalsIgnoreCase((String) operands.get(1)));
         return !operands.get(0).equals(operands.get(1));

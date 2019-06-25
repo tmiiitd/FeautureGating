@@ -1,5 +1,8 @@
 package operators;
 
+import exceptions.OperandCountException;
+import exceptions.OperandTypeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +40,14 @@ public class LogicalNOT implements LogicalOperator {
     }
 
     public <E> boolean operate(List<E> operands) throws Exception {
-        if (operands.size() != 1)
-            throw new Exception("");
+        if (operands.size() != operandCount)
+            throw new OperandCountException("LogicalNOT", operandCount, operands.size());
 
         E operand = operands.get(0);
         if (operand instanceof Boolean) {
             return !(Boolean)operand;
         } else {
-            throw new Exception();
+            throw new OperandTypeException("LogicalNOT", "Operand Type Not Supported");
         }
     }
 }

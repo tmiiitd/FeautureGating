@@ -1,5 +1,7 @@
 package operators;
 
+import exceptions.OperandCountException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +39,8 @@ public class NoneOf implements LogicalOperator{
     }
 
     public <E> boolean operate(List<E> operands) throws Exception {
-        if(operands.size()<2)
-            throw new Exception();
+        if(operands.size()!=operandCount)
+            throw new OperandCountException("NoneOf", operandCount, operands.size());
 
         ExactlyEqualTo exactlyEqualTo = ExactlyEqualTo.getInstance();
         E operand = operands.get(0);
